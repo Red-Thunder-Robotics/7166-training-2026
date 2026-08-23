@@ -196,10 +196,10 @@ Before you start, create the file. Both routes need it.
 
 1. Check that **Current Repository** at the top says `7166-training-2026`.
 2. Click **Current Branch**, then **New Branch**.
-3. Name it `<your-name>/lesson-01`. Click **Create Branch**. (ex `brandon/lesson-01`)
+3. Name it `<your-name>_lesson-01`. Click **Create Branch**. (ex `brandon_lesson-01`)
 4. Your new file shows up in the list on the left.
 5. In the box at the bottom left, type a summary: `Add lesson 01 setup notes`.
-6. Click **Commit to `<your-name>/lesson-01`**.
+6. Click **Commit to `<your-name>_lesson-01`**.
 7. Click **Publish branch** at the top.
 8. A banner appears. Click **Preview Pull Request**.
 9. Write the description. Click **Create pull request**.
@@ -207,7 +207,7 @@ Before you start, create the file. Both routes need it.
 ### Route B: VS Code
 
 1. Click the branch name in the bottom left of the status bar.
-2. Choose **Create new branch**. Name it `<your-name>/lesson-01`. (ex `brandon/lesson-01`)
+2. Choose **Create new branch**. Name it `<your-name>_lesson-01`. (ex `brandon_lesson-01`)
 3. Open the **Source Control** panel. It is the branching icon on the left, or press
    `Ctrl+Shift+G`.
 4. Your file is under Changes. Hover over it and click **+**. This is called staging.
