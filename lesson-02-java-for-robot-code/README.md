@@ -24,7 +24,7 @@ Two parts. Do them in this order:
 - Split a program into classes that each do one job.
 - Read an `enum` that carries behaviour as well as a list of names.
 - Say what an `interface` is for, and why one thing might have two of them.
-- Write a small program from a spec and test it.
+- Write a small program from a spec, split into classes that each do one job, and test it.
 
 ## No AI on Part 2
 
