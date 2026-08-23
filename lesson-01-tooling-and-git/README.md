@@ -161,12 +161,33 @@ Nothing is broken. WPILib installs its own copy of Java and keeps it to itself. 
 
 Make your first pull request.
 
-There are two routes below. **Pick one.** They do the same thing, because both of them are using the same git. Route A is GitHub Desktop. Route B is VS Code.
+### Read this first
+
+[CONTRIBUTING.md](../CONTRIBUTING.md) is the process we will try to use for every change, on this repo and on the robot code. Read it now. It is short.
+
+The whole process is:
+
+```
+issue -> branch -> commits -> push -> pull request -> checks -> review -> merge
+```
+
+### Open an issue
+
+1. Go to the training repo on github.com. Click the **Issues** tab, then
+   **New issue**.
+2. Title it `Lesson 01: setup notes for <your name>`.
+3. In the body, say what you are going to add.
+4. Assign it to yourself.
+5. Note the number GitHub gives it. You will need it at the end.
+
+### Create the file
+
+There are two ways to do this below. **Pick one.** They do the same thing, because both of them are using the same git. Route A is GitHub Desktop. Route B is VS Code.
 
 Before you start, create the file. Both routes need it.
 
 1. Open the `7166-training-2026` folder in VS Code.
-2. Make a folder called `submissions/<your-github-username>/`.
+2. Make a folder called `submissions/<your-name>/`.
 3. In it, make a file called `lesson-01.md`.
 4. Copy the template below into it and fill it in.
 5. Save.
@@ -198,11 +219,31 @@ Before you start, create the file. Both routes need it.
 
 ### Then, either way
 
+Add `Closes #12` to the end of the pull request description using your own issue number. GitHub then closes the issue for you when the pull request is merged.
+
 Ask for a review. **Do not merge it yourself.**
 
 Moving the code is the easy part. The review is what we are practising.
 
 If you get asked to sign in partway through, GitHub Desktop's login did not carry over. Sign in and keep going. It will not ask again.
+
+### What happens next
+
+Open your pull request on github.com and look at the bottom This is where every change you ever make to the robot ends up.
+
+On the robot code, two checks start on their own and take about four minutes:
+
+- **Build** compiles the code from scratch on a clean machine.
+- **Formatter** checks the code is formatted the same way as everyone else's.
+
+This repo has no checks, so your lesson 01 pull request will not show them. You will see them the time you touch the robot code. When you do:
+
+- A **green tick** means the check passed.
+- A **red cross** means it failed. Click it to see why. The error is near the bottom of the log.
+- A red **Build** usually means you forgot to commit a file. 
+- A red **Formatter** means you committed without building.Build once, commit the changed files, push again.
+
+On the robot code the merge button stays greyed out until the checks are green, somebody has approved it, and every comment thread is resolved. 
 
 ### Template
 
@@ -233,6 +274,9 @@ Paste the actual output or what the window says.
 
 ## Questions
 
+- What is an issue for, when you could just make the change?
+- On the robot code, two checks run on every pull request. What is each one for?
+- A check goes red. What is the first thing you do?
 - What is a branch? Why make one instead of editing `main`?
 - What is the difference between committing and pushing?
 - Your pull request is open. Nobody has merged it. Where does your work exist right now: on your laptop, on GitHub, or both?
