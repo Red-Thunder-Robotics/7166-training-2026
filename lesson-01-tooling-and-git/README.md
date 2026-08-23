@@ -79,7 +79,7 @@ sudo apt install git
 
 ### Does WPILib not come with git?
 
-No, WPILib's VS Code has a **Source Control panel** built in. That panel is a screen, not a program. It needs a copy of git to drive, and it looks for one on your computer. WPILib does not install one.
+No. WPILib's VS Code has a **Source Control panel** built in, but that panel is a screen. It needs a copy of git to drive, and it looks for one on your computer. WPILib does not install one.
 
 ## 4. GitHub Desktop
 
@@ -87,8 +87,7 @@ Download it from <https://desktop.github.com> and run it.
 
 1. Open it. Choose **Sign in to GitHub.com**.
 2. Your browser opens. Log in and approve it.
-3. GitHub Desktop asks for a name and email for your commits. Use your real name and
-   the email on your GitHub account.
+3. GitHub Desktop asks for a name and email for your commits. Use your real name and the email on your GitHub account.
 
 That sign-in is also what lets you push. GitHub Desktop saves the login, and VS Code uses the same one.
 
@@ -173,8 +172,7 @@ issue -> branch -> commits -> push -> pull request -> checks -> review -> merge
 
 ### Open an issue
 
-1. Go to the training repo on github.com. Click the **Issues** tab, then
-   **New issue**.
+1. Go to the training repo on github.com. Click the **Issues** tab, then **New issue**.
 2. Title it `Lesson 01: setup notes for <your name>`.
 3. In the body, say what you are going to add.
 4. Assign it to yourself.
@@ -208,8 +206,7 @@ Before you start, create the file. Both routes need it.
 
 1. Click the branch name in the bottom left of the status bar.
 2. Choose **Create new branch**. Name it `<your-name>_lesson-01`. (ex `brandon_lesson-01`)
-3. Open the **Source Control** panel. It is the branching icon on the left, or press
-   `Ctrl+Shift+G`.
+3. Open the **Source Control** panel. It is the branching icon on the left, or press `Ctrl+Shift+G`.
 4. Your file is under Changes. Hover over it and click **+**. This is called staging.
 5. Type a message in the box: `Add lesson 01 setup notes`.
 6. Click **Commit**.
@@ -243,7 +240,7 @@ This repo has no checks, so your lesson 01 pull request will not show them. You 
 - A red **Build** usually means you forgot to commit a file. 
 - A red **Formatter** means you committed without building.Build once, commit the changed files, push again.
 
-On the robot code the merge button stays greyed out until the checks are green, somebody has approved it, and every comment thread is resolved. 
+On the robot code the merge button stays greyed out until the checks are green, somebody has approved it, and every comment thread is resolved.
 
 ### Template
 
@@ -291,5 +288,4 @@ Paste the actual output or what the window says.
 
 ## Submit
 
-Once your PR is open ping Brandon on slack and he will review and merge it.
-Please do not start lesson 02 until this PR is merged.
+Once your PR is open ping Brandon on slack and he will review and merge it. Please do not start lesson 02 until this PR is merged.

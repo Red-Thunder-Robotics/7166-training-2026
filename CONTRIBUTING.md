@@ -91,8 +91,7 @@ Rules:
   - what the change is,
   - why it is needed,
   - **how you tested it, or how you know it works.**
-- End the description with `Closes #12`, using your issue number. GitHub then closes
-  the issue for you when the pull request is merged.
+- End the description with `Closes #12`, using your issue number. GitHub then closes the issue for you when the pull request is merged.
 - **Reviews required:** atleast one other person on every pull request.
 - Never merge your own without review.
 - Prefer **Squash and merge**.
@@ -109,8 +108,7 @@ Approving a pull request means you take on answering questions about it later. R
 
 ## Naming things in code
 
-Google's
-[Java style guide](https://google.github.io/styleguide/javaguide.html#s5-naming):
+Google's [Java style guide](https://google.github.io/styleguide/javaguide.html#s5-naming):
 
 - Constants `ALL_CAPS`
 - Classes `PascalCase`
@@ -139,7 +137,7 @@ Install **Git for Windows** as well as GitHub Desktop. GitHub Desktop keeps its 
 
 ## Checks
 
-When you push to the robot code, two checks run on their own. 
+When you push to the robot code, two checks run on their own.
 
 | Check | What it does | What a red mark means |
 | --- | --- | --- |
