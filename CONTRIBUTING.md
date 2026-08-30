@@ -160,6 +160,14 @@ Formatting runs as part of every build, so `WPILib: Build Robot Code` fixes it. 
 
 A red Formatter almost always means you edited a file and committed it without building first.
 
+### Tests on the training robot
+
+`7166-training-robot` carries a test suite as well. The tests are Java files under `src/test/java`. Each one checks a single claim about the code you are filling in, and each one is named after the claim it checks.
+
+Run them from VS Code. **Ctrl+Shift+P**, then **WPILib: Test Robot Code**. The terminal panel reports which tests failed and how many.
+
+When a lesson has tests, it is finished when they pass. Some of them fail the moment you start, and making them pass is the assignment.
+
 ## Getting your pull request merged
 
 On the robot code, `main` is protected. You cannot push to it and you cannot merge until all of this is true:
@@ -176,6 +184,19 @@ Say so! Send a message on slack and ask a mentor or another student to review yo
 ### The training repo
 
 This repo has no checks. Only the robot code does. Everything else on this page still applies here: branch, pull request, review, squash merge.
+
+### Pull requests on the training robot
+
+From lesson 03 on you hand in two things, and they end in two different ways.
+
+| What | Repo | How it ends |
+| --- | --- | --- |
+| Your code, on a branch named `<your-name>_lesson-03` | `7166-training-robot` | Reviewed, then **closed** |
+| Your write-up, at `submissions/<your-name>/lesson-03.md` | `7166-training-2026` | Reviewed, then **merged** |
+
+All three of you fill the same blanks in the same files. Merging one of those branches into `main` would wipe out the blanks for everyone who has not done the lesson yet, and hand them the answers. So the branch stays on the repo with your name on it, and the pull request is closed once it has been reviewed.
+
+On that repo, a closed pull request is a finished lesson.
 
 ## General
 

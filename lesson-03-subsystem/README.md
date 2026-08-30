@@ -325,13 +325,13 @@ Press `L` and `IndexerTargetVelocityRPS` should go to **−16.67**, which is `in
 
 `TopRollerVelocityRPS` and `LowerKickerVelocityRPS` move at the same time, because the `Reversing` case runs all three. Those two were already written. If yours is the only one of the three sitting at zero, your TODO 3 in `IndexerIOSim` is missing.
 
-`IndexerCurrentAmps` stays at 0.0 forever. `IndexerIOSim` never sets it, because there is no physics in it to draw current from. Lesson 04 fixes that.
+`IndexerCurrentAmps` stays at 0.0 forever. `IndexerIOSim` never sets it, because there is no physics in it to draw current from. We will fix that in the next lesson.
 
 ---
 
 ## 11. What a top team does differently
 
-Every lesson from here ends with one of these. The code you just wrote is real and it shipped, and it is also not the best version of itself.
+> Every lesson from here ends with one of these.
 
 You wrote a third copy of the same twenty lines. `IndexerIOReal` now has three motor fields, three pairs of status signals, three control requests, three nearly identical configuration blocks and six nearly identical methods. Change how one motor is configured and you have to remember the other two.
 
@@ -342,9 +342,9 @@ private final RollerSystem rollerFront;
 private final RollerSystem rollerBack;
 ```
 
-One class, used twice, instead of two copies of everything. Their input struct also carries a `connected` flag, so a motor that falls off the bus shows up as a message rather than as a mechanism that quietly does nothing.
+One class, used twice, instead of two copies of everything. Their input struct also carries a `connected` flag, so a motor that falls off the bus shows up as a message rather than as a mechanism going down.
 
-You do not need to change anything. Notice the cost while it is fresh.
+You do not need to change anything right now, but keep this in mind for the 2027 season.
 
 ---
 
