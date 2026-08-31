@@ -33,7 +33,9 @@ Write robot code for the first time. You fill in the two files that talk to the 
 | `7166-training-2026` | The lessons, including this page, and everyone's write-ups | Read the lesson. Write `submissions/<your-name>/lesson-03.md` |
 | `7166-training-robot` | Robot code with pieces taken out | Fill the pieces back in |
 
-`7166-training-robot` is a copy of Grapefruit at commit `b418b00`, with the indexer's roller taken out of two files. Everything else is the real 2026 competition code, unchanged, including its full history. 
+`7166-training-robot` is a copy of Grapefruit at commit `b418b00`, with the indexer's roller taken out of two files. Everything else is the real 2026 competition code, unchanged, including its full history.
+
+**Video:** [Lesson 03, part 1: setup](https://youtu.be/HZ2ITfLBNZ8)
 
 ### Clone it
 
@@ -142,7 +144,7 @@ public static final Trigger reverseButton = operatorController.leftTrigger().or(
 
 `driveController.b()` is the B button on an Xbox controller, which is button 2, which the simulator keyboard map puts on the **`L` key**. `Robot.java` binds it to `RobotCommands.generalReversing()`, which calls `setShooterState(ShooterState.Reversing)`.
 
-So: press `L` in the simulator, the robot goes into `Reversing`, and `periodic()` calls the method you wrote. 
+So: press `L` in the simulator, the robot goes into `Reversing`, and `periodic()` calls the method you wrote.
 
 ---
 
@@ -151,7 +153,7 @@ So: press `L` in the simulator, the robot goes into `Reversing`, and `periodic()
 You read these in lesson 02, part 1.
 
 | File | Its one job | You write |
-| --- | --- | --- | --- |
+| --- | --- | --- |
 | `IndexerConstants.java` | Numbers. CAN ids, gear ratios, current limits, speeds, gains | Nothing |
 | `IndexerIO.java` | The contract: what an indexer can be asked to do and what it reports | Nothing |
 | `IndexerIOReal.java` | Doing those things to real motors over CAN | **8 TODOs** |
@@ -240,6 +242,7 @@ inputs.indexerTargetVelocityRPS = PhoenixUtil.getRequestVelocity(m_indexerMotor.
 ```
 
 The target is what we asked for, read back out of the last control request sent to the motor rather than measured. With the request logged beside the measurement, the two can be plotted against each other. A later lesson will cover that.
+
 ---
 
 ## 7. Two computers, two loops
@@ -300,6 +303,8 @@ Write it anyway, exactly as the top roller does it. Lesson 04 is about everythin
 
 ## 10. Running it in simulation
 
+**Video:** [Lesson 03, part 2: the simulator](https://youtu.be/gHHWqOSpkeE)
+
 `Ctrl+Shift+P`, then `WPILib: Simulate Robot Code`.
 
 VS Code asks which simulation extensions to use. Tick **Sim GUI** and click OK.
@@ -329,7 +334,7 @@ Press `L` and `IndexerTargetVelocityRPS` should go to **−16.67**, which is `in
 
 ---
 
-## 11. What a top team does differently
+## 11. What other teams do differently
 
 > Every lesson from here ends with one of these.
 
