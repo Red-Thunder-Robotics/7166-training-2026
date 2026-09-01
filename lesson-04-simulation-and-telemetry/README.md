@@ -9,12 +9,12 @@ Last lesson you wrote a simulation that always succeeds. This lesson you replace
 - Lesson 03: write-up merged, code pull request reviewed and closed.
 - The `7166-training-robot` repo, cloned in lesson 03.
 
-You do not start from your own lesson 03 branch. Start from `lesson-03-solution`. It has the lesson 03 answers filled in, so you begin from known good code, and the indexer roller's simulation has been taken back out for this lesson.
+You do not start from your own lesson 03 branch. Start from `lesson-04-prep`. It has the lesson 03 answers filled in, so you begin from known good code, and the indexer roller's simulation has been taken back out for this lesson.
 
 Make your own branch off it before you touch anything.
 
 ```
-git checkout lesson-03-solution
+git checkout lesson-04-prep
 git pull
 git checkout -b <your-name>_lesson-04
 ```
@@ -23,7 +23,7 @@ Open `IndexerIOSim.java` and check before you go any further. The TODOs in it sh
 
 ## Time box
 
-2-3 hours.
+4-5 hours.
 
 ## Learning goals
 
