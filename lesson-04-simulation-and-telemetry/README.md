@@ -8,6 +8,7 @@ Last lesson you wrote a simulation that always succeeds. This lesson you replace
 
 - Lesson 03: write-up merged, code pull request reviewed and closed.
 - The `7166-training-robot` repo, cloned in lesson 03.
+- It is HIGHLY reccommended you watch [FRC Log Replay and Simulation](https://www.youtube.com/watch?v=8FfwFQcvRmU).
 
 You do not start from your own lesson 03 branch. Start from `lesson-04-prep`. It has the lesson 03 answers filled in, so you begin from known good code, and the indexer roller's simulation has been taken back out for this lesson.
 
@@ -79,6 +80,8 @@ All three depend on the sim being close enough to the real thing that what you l
 
 ## 2. The line you wrote last lesson
 
+Start with [this video](https://youtu.be/zZF8ABBtvPs)
+
 Open `IndexerIOSim.java` on your branch. Here is what you wrote in lesson 03. Part of it has been taken out for you to replace:
 
 ```java
@@ -117,6 +120,8 @@ Holding `L` asks for `indexerOutputVelocityReverse`, which `IndexerConstants` se
 A model that always succeeds cannot warn you about anything. A gain that would tear the gearbox off draws the same picture as a good one.
 
 ## 3. The answer is already in your repo
+
+Follow along with [This Video](https://youtu.be/SAL1bCoXF9M) for the context.
 
 Open `subsystems/drive/ModuleIOSim.java`. Look at the copyright header first: this file is 6328's, not ours. Our whole drivetrain folder is theirs. Here is how they simulate a swerve module:
 
@@ -175,7 +180,7 @@ Here is something the plot tells you, when Grapefruit shoots, it asks this rolle
 
 **Moment of inertia** measures how hard a spinning thing is to speed up. It is written in kilogram square meters, and it is not the same as mass. Where the mass sits matters as much as how much of it there is.
 
-> **Try this yourself!** Get on a chair that can spin and start spinning, notice how you go slower when you spread your arms out, and faster when you tuck your arms in.
+> **Try this yourself!** Get on a chair that can spin and start spinning, notice how you go slower when you spread your arms out, and faster when you tuck your arms in. Watch [This Video](https://www.youtube.com/watch?v=bvLgw-HWn8w) to learn more!
 
 ![An animation of two wheels carrying the same four weights and given the same push. The one with its weights at the rim turns nine times slower.](img/inertia.gif)
 
@@ -242,7 +247,7 @@ You need both, and here is why.
 
 *Figure 2.4 from [WPILib's Introduction to PID](https://docs.wpilib.org/en/stable/docs/software/advanced-controls/introduction/introduction-to-pid.html). © FIRST and other WPILib Contributors, CC BY 4.0.*
 
-**Turning `kP` up is what the loop rate takes away from you.** At `kP` of 1.75, your simulation swings past the target, swings back past it the other way, and never stops. For half of every cycle the roller runs backwards. Anything past about 0.42 does this.
+**Turning `kP` up is what the loop rate takes away from you.** At `kP` of 1.75, your simulation swings past the target, swings back past it the other way, and never stops. Anything past about 0.42 does this.
 
 ![Two runs of the same roller. At a kP of 0.05 the speed settles on the target. At 1.75 it swings above and below it, sample after sample, and never settles.](img/overshoot.png)
 
@@ -285,6 +290,8 @@ Doubling until it misbehaves, then splitting the difference, finds a number of u
 There is a third term, `kI`, which adds up error over time and would wipe out the leftover offset that a P term always leaves. FRC mechanisms mostly do without it, because a good feedforward removes the offset the term was there to fix.
 
 ## 6. What you are writing
+
+Follow along with [This Video](TODO) for writing the code.
 
 Four things, in `IndexerIOSim.java`. Every closed loop in controls is drawn the same way, and yours is no exception:
 
@@ -335,6 +342,13 @@ double volts = MathUtil.clamp(ff + fb, -12.0, 12.0);
 if (DriverStation.isDisabled()) {
     volts = 0.0;
 }
+
+double motorSpeed = m_indexerSim.getAngularVelocityRadPerSec() * indexerMotorReduction;
+volts = MathUtil.clamp(
+        volts,
+        GEARBOX.getVoltage(GEARBOX.getTorque(-indexerCurrentLimit), motorSpeed),
+        GEARBOX.getVoltage(GEARBOX.getTorque(indexerCurrentLimit), motorSpeed));
+
 m_indexerSim.setInputVoltage(volts);
 m_indexerSim.update(0.02);
 ```
@@ -343,14 +357,20 @@ The `0.02` is in **seconds**, so 20 milliseconds, one robot loop.
 
 Read the measurement, ask the feedforward for its guess, ask the feedback for its correction, clamp because there are twelve volts on the robot, zero when disabled, then set the voltage. Voltage is the only thing a motor ever receives, and update, because nothing else in the program tells the model that 20 milliseconds have passed. Leave `update` out and nothing ever moves.
 
+**The second clamp is the current limit.** You configured one onto the Talon in lesson 03. `getTorque(25)` is the force 25 amps buys and `getVoltage(force, speed)` is the voltage that produces it at the speed you are at, so clamping between those two bounds is a current limit. 
+
+A Talon measures two currents. **Stator current** is the current in the windings, and it is what becomes force. **Supply current** is what the controller pulls off the battery, and it is what `IndexerConstants` limits at 25 amps. 
+
 **The readings.** `IndexerIOInputs` has three fields for your motor: the target, which you already store, and these two, which now come off the plant instead of being invented:
 
 ```java
 inputs.indexerVelocityRPS = m_indexerSim.getAngularVelocityRPM() / 60.0;
-inputs.indexerCurrentAmps = m_indexerSim.getCurrentDrawAmps();
+inputs.indexerCurrentAmps = Math.abs(GEARBOX.getCurrent(motorSpeed, volts));
 ```
 
 That second line is what finally makes `IndexerCurrentAmps` stop reading 0.0.
+
+`DCMotorSim` has a `getCurrentDrawAmps()` which reads the current after the model has already stepped, by which time the roller has sped up and the number has fallen well below the limit you just applied. Asking the gearbox directly, with the same speed the limit used, gives you the current the limit actually held. 6328's `RollerSystemIOSim` reads it the same way.
 
 `indexerVelocity()` and `indexerStop()` still have to store the target, because nothing else sets it. `indexerVelocity()` is also shorter than it was in lesson 03: the `setSetpoint` line has gone, because `calculate(measured, m_indexerTargetVelocity)` hands the controller its target every loop instead. If you write all four things above and the roller never moves, check those two methods first.
 
@@ -378,6 +398,8 @@ You can see the split in AdvantageScope. Readings logged with `processInputs("In
 
 ## 8. AdvantageScope
 
+Follow along with [This Video](TODO) for testing and tuning.
+
 Start the simulation the way lesson 03 did: `Ctrl+Shift+P`, then `WPILib: Simulate Robot Code`, tick **Sim GUI**.
 
 ![The VS Code command palette with "WPILib simulate" typed in and "WPILib: Simulate Robot Code" highlighted.](img/wpilib/vscode-run-simulation.png)
@@ -399,28 +421,26 @@ Then hold `L`. `L` is the B button on the drive controller, which is `Controls.r
 
 ### What you should see
 
-![Two stacked panels sharing a time axis. Both simulations reach the same speed, the plant a little sooner. Underneath, the plant draws a spike of current and the fake draws none.](img/fake-vs-real.png)
+![Two stacked panels sharing a time axis. Both simulations reach the same speed, the fake a little sooner. Underneath, the plant holds a flat 25 amps for nine samples and the fake draws none.](img/fake-vs-real.png)
 
 *Both simulations, the same command, the same axes. Every dot is one 20 millisecond log sample. The speeds end up in the same place. The currents do not.*
 
 | Before this lesson | After |
 | --- | --- |
-| Current flat at 0.0 forever | About 58 amps on the first log sample, 9 on the next, then almost nothing |
-| Reaches the target in about five loops, whatever you ask for | Reaches it in about three, and cannot pass about 48 rotations per second at all |
-| The curve's shape is set by `kP` of 0.5 and nothing else | The curve's shape is set by the motor, the mass and the gearbox |
-| Error is a spike that shrinks by half each loop | Error is a spike that is gone within three loops |
+| Current flat at 0.0 forever | Flat at 25 amps for nine samples, then 8.5, 1.3, and nothing |
+| Reaches the target in about five loops, whatever you ask for | Reaches it in ten, and cannot pass about 48 rotations per second at all |
+| The curve's shape is set by `kP` of 0.5 and nothing else | The curve's shape is set by the motor, the mass, the gearbox and the current limit |
+| Error is a spike that shrinks by half each loop | Error is a straight ramp, because a limited current is a limited force |
 
-The current trace is the one to look at. It spikes while the speed is changing and drops to nearly nothing once the speed is held.
+Warnings about that trace.
 
-Three warnings about that trace.
+**Take the current limit out and the same run peaks at 58 amps on the first sample.** The limit is most of what makes the current worth plotting at all.
 
-**58 amps is not the same 25 amps as the current limit.** A real Talon FX measures two currents: the current in the motor windings, and the current it draws from the battery. `IndexerConstants` sets a 25 amp limit on the battery side. `DCMotorSim` models one current, applies no limit to it at all, and the number it reports is the winding one. So 58 amps is what the motor wants, not what the robot would allow. A later lesson covers the difference between the two.
+**The 25 on your plot is torque current. The 25 in `IndexerConstants` is supply current.** 
 
 **It settles at almost exactly zero, and a real one would not.** There is no friction in this model and no ball touching the roller, so once it is up to speed it costs nothing to stay there. On the real robot it never falls that far.
 
-**The peak you see depends on when the log looked.** Your code applies a voltage, advances the model 20 milliseconds, and only then reads the current. In the instant the voltage went on, the model was pulling about 200 amps. By the time the first sample is written the roller has already reached 14 rotations per second, the back-EMF from section 4 has cut the current by two thirds, and 58 is what gets recorded. Sampling changes what you see, and that is true of every plot you will ever take off a robot. If your own number lands at 55 or 62, that is usually caused by timing, not a bug.
-
-One more thing to expect: the current reads **positive** while the roller runs backwards. `getCurrentDrawAmps` reports the size of the current, with the sign of the voltage folded out. Speed is negative, current is positive, both are correct.
+One more thing to expect: the current reads **positive** whichever way the roller is turning, because `Math.abs` is wrapped around it. Speed is negative, current is positive, both are correct.
 
 ## 9. What other teams do differently
 
@@ -440,13 +460,13 @@ Neither change is yours to make today. Later we will build a subsystem from scra
 
 Open an issue on `7166-training-robot`. Title it `Lesson 04: indexer physics, <your name>`. Assign it to yourself.
 
-Your branch is `<your-name>_lesson-04`, made off `lesson-03-solution` in the prerequisites. If you skipped that step, `git checkout -b <your-name>_lesson-04 lesson-03-solution` makes it now.
+Your branch is `<your-name>_lesson-04`, made off `lesson-04-prep` in the prerequisites. If you skipped that step, `git checkout -b <your-name>_lesson-04 lesson-04-prep` makes it now.
 
 ### 2. Fill in `IndexerIOSim.java`
 
 The TODOs are numbered in the file. The top roller and the lower kicker stay as the old fake, so this time the code next to yours is the wrong answer rather than the right one.
 
-You will need imports the file does not have: `DCMotorSim`, `DCMotor`, `LinearSystemId`, `SimpleMotorFeedforward`, `MathUtil`, `DriverStation` and `Logger`, plus `indexerMotorReduction`, which is a static import from `IndexerConstants`. Add them with `Ctrl+.` as you go, and check which package each one comes from.
+You will need imports the file does not have: `DCMotorSim`, `DCMotor`, `LinearSystemId`, `SimpleMotorFeedforward`, `MathUtil`, `DriverStation` and `Logger`, plus `indexerMotorReduction` and `indexerCurrentLimit`, which are static imports from `IndexerConstants`. Add them with `Ctrl+.` as you go, and check which package each one comes from.
 
 ### 3. Make the plot
 
@@ -456,11 +476,11 @@ Your pull request needs a screenshot of that plot, taken while you hold the reve
 
 ### 4. Break it on purpose
 
-Set the moment of inertia to `0.1` instead of `0.001`, rebuild, and look again. Give it a good four seconds this time. Compare what you get against the plot in section 4, and put in your write-up what changed and why the current behaves the way it does. Then put it back.
+Set the moment of inertia to `0.1` instead of `0.001`, rebuild, and look again. Hold the key for a good fifteen seconds this time; with the current limit in, a hundred times the inertia really is a hundred times the wait. Compare what you get against the plot in section 4, and put in your write-up what changed and why the current behaves the way it does. Then put it back.
 
 ### 5. Open the pull request
 
-Into `lesson-03-solution`, the branch you started from, so the diff shows your work and nothing else. Reviewed, then closed, the same as lesson 03.
+Into `lesson-04-prep`, the branch you started from, so the diff shows your work and nothing else. Reviewed, then closed, the same as lesson 03.
 
 ### 6. Then read the solution
 
@@ -486,9 +506,10 @@ Before you change a gain, work out which of five things is wrong. 971's training
 | It settles a little short, around 13.9 of 16.67 | Your PID never got the target. Lesson 03 set it with `setSetpoint` in `indexerVelocity()`, and that line is gone | Pass the target as the second argument, `calculate(measured, m_indexerTargetVelocity)` |
 | It settles well short of the speed you asked for, around 10 of 16.67 | Your `kV` is volts per motor rotation per second. One roller turn is two motor turns, so the roller's number is the bigger one | Use 12 / 48.33, or multiply `indexerPidV` by the reduction |
 | Every speed reads about sixty times too big, around 1000 rather than 16.7 | `getAngularVelocityRPM` returns rotations per minute and the field is rotations per second | Divide by 60 |
-| The roller barely moves at all and the current sits near 200 amps | The inertia and the gearing are the wrong way round in `createDCMotorSystem`, so the model weighs 2 kilogram square meters | Argument order is `(gearbox, moi, gearing)`, so `(GEARBOX, 0.001, 2.0)`. It is not the clamp: `setInputVoltage` clamps to the battery anyway |
-| `IndexerCurrentAmps` still reads 0.0 | The current is not being read off the sim | `sim.getCurrentDrawAmps()` |
-| The current spikes to 50 amps or more | Correct. `DCMotorSim` has no current limit in it | Nothing. Section 8 explains it |
+| The roller barely moves at all and the current sits pinned at 25 amps | The inertia and the gearing are the wrong way round in `createDCMotorSystem`, so the model weighs 2 kilogram square meters | Argument order is `(gearbox, moi, gearing)`, so `(GEARBOX, 0.001, 2.0)`. It is not the clamp: `setInputVoltage` clamps to the battery anyway |
+| `IndexerCurrentAmps` still reads 0.0 | The current is never worked out | `Math.abs(GEARBOX.getCurrent(motorSpeed, volts))` |
+| The current goes well past 25 | The current-limit clamp is missing, or you called `getCurrentDrawAmps()` instead | Section 6. `DCMotorSim` applies no limit of its own |
+| The roller settles around −1.26 instead of −16.7 | Your current-limit clamp is one-sided. `getVoltage` hands back a signed bound, so `clamp(volts, -bound, bound)` inverts once the speed goes negative | Section 6. Pass both bounds, `getTorque(-limit)` and `getTorque(limit)` |
 | AdvantageScope shows nothing | Not connected, or the simulation is not running | **File**, then **Connect to Simulator**, with the sim already up |
 | Your error value is not in the sidebar | You are looking under `AdvantageKit/Indexer`, where it does not live | Look under `AdvantageKit/RealOutputs/Indexer`. If it is not there either, `Logger.recordOutput` was never called |
 
