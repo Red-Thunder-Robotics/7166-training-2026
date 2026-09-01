@@ -9,12 +9,12 @@ Last lesson you wrote a simulation that always succeeds. This lesson you replace
 - Lesson 03: write-up merged, code pull request reviewed and closed.
 - The `7166-training-robot` repo, cloned in lesson 03.
 
-You do not start from your own lesson 03 branch. Start from `task3-solutions`. It has the lesson 03 answers filled in, so you begin from known good code, and the indexer roller's simulation has been taken back out for this lesson.
+You do not start from your own lesson 03 branch. Start from `lesson-03-solution`. It has the lesson 03 answers filled in, so you begin from known good code, and the indexer roller's simulation has been taken back out for this lesson.
 
 Make your own branch off it before you touch anything.
 
 ```
-git checkout task3-solutions
+git checkout lesson-03-solution
 git pull
 git checkout -b <your-name>_lesson-04
 ```
@@ -79,7 +79,7 @@ All three depend on the sim being close enough to the real thing that what you l
 
 ## 2. The line you wrote last lesson
 
-Open `IndexerIOSim.java` on your branch. Here is what you wrote in lesson 03, and what has been taken back out for you to replace:
+Open `IndexerIOSim.java` on your branch. Here is what you wrote in lesson 03. Part of it has been taken out for you to replace:
 
 ```java
 inputs.indexerTargetVelocityRPS = m_indexerTargetVelocity;
@@ -242,7 +242,7 @@ You need both, and here is why.
 
 *Figure 2.4 from [WPILib's Introduction to PID](https://docs.wpilib.org/en/stable/docs/software/advanced-controls/introduction/introduction-to-pid.html). © FIRST and other WPILib Contributors, CC BY 4.0.*
 
-**Turning `kP` up is what the loop rate takes away from you.** At `kP` of 1.75, your simulation swings past the target, swings back past it the other way, and never stops. For half of every cycle the roller runs backwards. Anything past about 0.45 does this.
+**Turning `kP` up is what the loop rate takes away from you.** At `kP` of 1.75, your simulation swings past the target, swings back past it the other way, and never stops. For half of every cycle the roller runs backwards. Anything past about 0.42 does this.
 
 ![Two runs of the same roller. At a kP of 0.05 the speed settles on the target. At 1.75 it swings above and below it, sample after sample, and never settles.](img/overshoot.png)
 
@@ -280,7 +280,7 @@ If you want to find a gain rather than be handed one, [WPILib's tuning tutorials
 
 > When "increasing" a value, multiply it by two until the expected effect is observed. After the first time the value becomes too large (i.e. the behavior is unstable or the mechanism overshoots), reduce the value to halfway between the first too-large value encountered and the previous value tested before that.
 
-Doubling until it misbehaves, then splitting the difference, finds a number of unknown size in a handful of tries. Run it on this roller and it goes 0.05, 0.1, 0.2, 0.4, all of which settle, then 0.8, which does not. Split back down: 0.6 no, 0.5 no, 0.45 yes.
+Doubling until it misbehaves, then splitting the difference, finds a number of unknown size in a handful of tries. Run it on this roller and it goes 0.05, 0.1, 0.2, 0.4, all of which settle, then 0.8, which does not. Split back down: 0.6 no, 0.5 no, 0.45 no, 0.42 yes.
 
 There is a third term, `kI`, which adds up error over time and would wipe out the leftover offset that a P term always leaves. FRC mechanisms mostly do without it, because a good feedforward removes the offset the term was there to fix.
 
@@ -352,7 +352,7 @@ inputs.indexerCurrentAmps = m_indexerSim.getCurrentDrawAmps();
 
 That second line is what finally makes `IndexerCurrentAmps` stop reading 0.0.
 
-`indexerVelocity()` and `indexerStop()` still have to store the target the way they did in lesson 03, because nothing else sets it. If you write all four things above and the roller never moves, check those two methods first.
+`indexerVelocity()` and `indexerStop()` still have to store the target, because nothing else sets it. `indexerVelocity()` is also shorter than it was in lesson 03: the `setSetpoint` line has gone, because `calculate(measured, m_indexerTargetVelocity)` hands the controller its target every loop instead. If you write all four things above and the roller never moves, check those two methods first.
 
 The reference for all of it is 6328's `RollerSystemIOSim.java`. It is 58 lines and it does exactly this, for every roller on their robot. It is **not in your repo**: it lives in [their public 2026 code](https://github.com/Mechanical-Advantage/RobotCode2026Public), under `src/main/java/org/littletonrobotics/frc2026/subsystems/rollers/`.
 
@@ -440,13 +440,13 @@ Neither change is yours to make today. Later we will build a subsystem from scra
 
 Open an issue on `7166-training-robot`. Title it `Lesson 04: indexer physics, <your name>`. Assign it to yourself.
 
-Your branch is `<your-name>_lesson-04`, made off `task3-solutions` in the prerequisites. If you skipped that step, `git checkout -b <your-name>_lesson-04 task3-solutions` makes it now.
+Your branch is `<your-name>_lesson-04`, made off `lesson-03-solution` in the prerequisites. If you skipped that step, `git checkout -b <your-name>_lesson-04 lesson-03-solution` makes it now.
 
 ### 2. Fill in `IndexerIOSim.java`
 
 The TODOs are numbered in the file. The top roller and the lower kicker stay as the old fake, so this time the code next to yours is the wrong answer rather than the right one.
 
-You will need imports the file does not have: `DCMotorSim`, `DCMotor`, `LinearSystemId`, `SimpleMotorFeedforward`, `MathUtil`, `DriverStation` and `Logger`. Add them with `Ctrl+.` as you go, and check which package each one comes from.
+You will need imports the file does not have: `DCMotorSim`, `DCMotor`, `LinearSystemId`, `SimpleMotorFeedforward`, `MathUtil`, `DriverStation` and `Logger`, plus `indexerMotorReduction`, which is a static import from `IndexerConstants`. Add them with `Ctrl+.` as you go, and check which package each one comes from.
 
 ### 3. Make the plot
 
@@ -460,7 +460,7 @@ Set the moment of inertia to `0.1` instead of `0.001`, rebuild, and look again. 
 
 ### 5. Open the pull request
 
-Into `task3-solutions`, the branch you started from, so the diff shows your work and nothing else. Reviewed, then closed, the same as lesson 03.
+Into `lesson-03-solution`, the branch you started from, so the diff shows your work and nothing else. Reviewed, then closed, the same as lesson 03.
 
 ### 6. Then read the solution
 
@@ -483,8 +483,10 @@ Before you change a gain, work out which of five things is wrong. 971's training
 | The roller reaches the target instantly, as before | The plant is not in the path. The old `pid.calculate` line is probably still there | Delete it. The PID output is now a voltage, not a speed |
 | The roller keeps spinning after you disable the robot | The `DriverStation.isDisabled()` check is missing | Section 6 |
 | The speed swings plus and minus and never settles | You reused the Talon FX's `kP` of 1.75. It is calm at 1000 Hz and unstable at 50 Hz | Section 5. Use 0.05 |
+| It settles a little short, around 13.9 of 16.67 | Your PID never got the target. Lesson 03 set it with `setSetpoint` in `indexerVelocity()`, and that line is gone | Pass the target as the second argument, `calculate(measured, m_indexerTargetVelocity)` |
 | It settles well short of the speed you asked for, around 10 of 16.67 | Your `kV` is volts per motor rotation per second. One roller turn is two motor turns, so the roller's number is the bigger one | Use 12 / 48.33, or multiply `indexerPidV` by the reduction |
-| Velocity is enormous, thousands of RPS | The reduction and the inertia are the wrong way round in `createDCMotorSystem` | Argument order is `(gearbox, moi, gearing)`, so `(GEARBOX, 0.001, 2.0)`. It is not the clamp: `setInputVoltage` clamps to the battery anyway |
+| Every speed reads about sixty times too big, around 1000 rather than 16.7 | `getAngularVelocityRPM` returns rotations per minute and the field is rotations per second | Divide by 60 |
+| The roller barely moves at all and the current sits near 200 amps | The inertia and the gearing are the wrong way round in `createDCMotorSystem`, so the model weighs 2 kilogram square meters | Argument order is `(gearbox, moi, gearing)`, so `(GEARBOX, 0.001, 2.0)`. It is not the clamp: `setInputVoltage` clamps to the battery anyway |
 | `IndexerCurrentAmps` still reads 0.0 | The current is not being read off the sim | `sim.getCurrentDrawAmps()` |
 | The current spikes to 50 amps or more | Correct. `DCMotorSim` has no current limit in it | Nothing. Section 8 explains it |
 | AdvantageScope shows nothing | Not connected, or the simulation is not running | **File**, then **Connect to Simulator**, with the sim already up |
@@ -532,6 +534,25 @@ Put this in `submissions/<your-name>/lesson-04.md`.
 Code pull request first, then the write-up. Ping Brandon on Slack when both are up.
 
 ---
+## Extra Credit!
+
+Grapefruit has five simulations with the old model in it. You have now replaced one of them. Replace a second, in `7166_REBUILT`, the competition repo you cloned in lesson 01.
+
+Pick one:
+
+| File | What to convert | What you are taking on |
+| --- | --- | --- |
+| `ground_intake/GroundIntakeIOSim.java` | The intake roller | Closest to what you just did. `rollerMotorReduction` is 18/12 |
+| `shooter/ShooterIOSim.java` | The upper kicker | One roller, one motor, the same shape as the indexer |
+| `shooter/ShooterIOSim.java` | The flywheel | Harder. Four Krakens on one shaft, so `getKrakenX60Foc(4)`, and `flywheelReduction` is 24/18 |
+
+Then the same workflow the lesson used:
+
+1. **Open an issue** on `7166_REBUILT`. Title it `Sim physics: <mechanism>, <your name>` and assign it to yourself.
+2. **Branch off `main`**, named `<your-name>_sim-<mechanism>`.
+3. **Convert the file.** You will have to find the motor, the reduction and a moment of inertia for yourself. The reduction is in that mechanism's `Constants` file. The inertia is an estimate, and your pull request should say where the number came from, the same way section 4 does for the roller.
+4. **Plot it,** before and after, and put both screenshots in the pull request.
+5. **Open the pull request into `main`** and write `Closes #n`.
 
 ## Where to read more
 
