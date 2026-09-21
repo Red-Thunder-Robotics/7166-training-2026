@@ -1,4 +1,3 @@
-package Elevator;
 /*
  * EvaluationTest.java
  *
@@ -53,22 +52,22 @@ public class EvaluationTest {
     // Test invalid move (below min)
     outContent.reset();
     elevator.goToFloor(0);
-    // String expectedInvalidLow = "Floor 0 is not a valid floor\n";
-    // check(elevator.getCurrentFloor() == 2, "Should remain at floor 2");
-    // checkEquals(
-    //     normalize(outContent.toString()),
-    //     expectedInvalidLow,
-    //     "Unexpected output for invalid low floor");
+    String expectedInvalidLow = "Floor 0 is not a valid floor\n";
+    check(elevator.getCurrentFloor() == 2, "Should remain at floor 2");
+    checkEquals(
+        normalize(outContent.toString()),
+        expectedInvalidLow,
+        "Unexpected output for invalid low floor");
 
     // Test invalid move (above max)
     outContent.reset();
     elevator.goToFloor(6);
-    // String expectedInvalidHigh = "Floor 6 is not a valid floor\n";
-    // check(elevator.getCurrentFloor() == 2, "Should remain at floor 2");
-    // checkEquals(
-    //     normalize(outContent.toString()),
-    //     expectedInvalidHigh,
-    //     "Unexpected output for invalid high floor");
+    String expectedInvalidHigh = "Floor 6 is not a valid floor\n";
+    check(elevator.getCurrentFloor() == 2, "Should remain at floor 2");
+    checkEquals(
+        normalize(outContent.toString()),
+        expectedInvalidHigh,
+        "Unexpected output for invalid high floor");
 
     // Test move to max floor
     outContent.reset();
