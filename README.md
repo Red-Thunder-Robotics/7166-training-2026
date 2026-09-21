@@ -12,7 +12,7 @@ Each lesson is one folder with a README. You can work through it on your own at 
 | 02 | [Java for robot code](lesson-02-java-for-robot-code/README.md) | 2-3 h | Two parts: notes on real robot code, then an elevator program that passes tests. |
 | 03 | [Subsystem](lesson-03-subsystem/README.md) | 2-3 h | The indexer roller, written by you, turning in simulation |
 | 04 | [Simulation and telemetry](lesson-04-simulation-and-telemetry/README.md) | 2-3 h | An AdvantageScope plot of the indexer spinning up |
-| 05 | Swerve | 2-3 h | A chassis driving in simulation, and an explanation of every number Tuner generates |
+| 05 | [Swerve](lesson-05-swerve/README.md) | 3 h | A swerve drive you tuned yourself in simulation, with the template's own routines |
 | 06 | Phoenix Tuner and CAN | | In person, on the test chassis. An ID map for the bus, and swerve constants you generated yourself |
 | 07 | Commands | | Two commands that interrupt each other correctly |
 | 08 | States | | A robot state you added, end to end |
