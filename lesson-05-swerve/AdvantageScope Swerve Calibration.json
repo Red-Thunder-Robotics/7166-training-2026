@@ -9,12 +9,12 @@
         "sidebar": {
           "width": 300,
           "expanded": [
-            "/AdvantageKit",
-            "/AdvantageKit/Drive",
-            "/AdvantageKit/RealOutputs",
-            "/AdvantageKit/RealOutputs/SwerveStates",
-            "/AdvantageKit/RealOutputs/SwerveChassisSpeeds",
-            "/AdvantageKit/RealOutputs/Odometry"
+            "NT:/AdvantageKit",
+            "NT:/AdvantageKit/Drive",
+            "NT:/AdvantageKit/RealOutputs",
+            "NT:/AdvantageKit/RealOutputs/SwerveStates",
+            "NT:/AdvantageKit/RealOutputs/SwerveChassisSpeeds",
+            "NT:/AdvantageKit/RealOutputs/Odometry"
           ]
         },
         "tabs": {
@@ -35,7 +35,7 @@
                 "sources": [
                   {
                     "type": "states",
-                    "logKey": "/AdvantageKit/RealOutputs/SwerveStates/Measured",
+                    "logKey": "NT:/AdvantageKit/RealOutputs/SwerveStates/Measured",
                     "logType": "SwerveModuleState[]",
                     "visible": true,
                     "options": {
@@ -45,7 +45,7 @@
                   },
                   {
                     "type": "states",
-                    "logKey": "/AdvantageKit/RealOutputs/SwerveStates/SetpointsOptimized",
+                    "logKey": "NT:/AdvantageKit/RealOutputs/SwerveStates/SetpointsOptimized",
                     "logType": "SwerveModuleState[]",
                     "visible": true,
                     "options": {
@@ -55,7 +55,7 @@
                   },
                   {
                     "type": "chassisSpeeds",
-                    "logKey": "/AdvantageKit/RealOutputs/SwerveChassisSpeeds/Measured",
+                    "logKey": "NT:/AdvantageKit/RealOutputs/SwerveChassisSpeeds/Measured",
                     "logType": "ChassisSpeeds",
                     "visible": true,
                     "options": {
@@ -64,7 +64,7 @@
                   },
                   {
                     "type": "chassisSpeeds",
-                    "logKey": "/AdvantageKit/RealOutputs/SwerveChassisSpeeds/Setpoints",
+                    "logKey": "NT:/AdvantageKit/RealOutputs/SwerveChassisSpeeds/Setpoints",
                     "logType": "ChassisSpeeds",
                     "visible": true,
                     "options": {
@@ -73,7 +73,7 @@
                   },
                   {
                     "type": "rotation",
-                    "logKey": "/AdvantageKit/RealOutputs/Odometry/Robot/rotation",
+                    "logKey": "NT:/AdvantageKit/RealOutputs/Odometry/Robot/rotation",
                     "logType": "Rotation2d",
                     "visible": true,
                     "options": {}
@@ -95,7 +95,7 @@
                 "sources": [
                   {
                     "type": "robot",
-                    "logKey": "/AdvantageKit/RealOutputs/Odometry/Robot",
+                    "logKey": "NT:/AdvantageKit/RealOutputs/Odometry/Robot",
                     "logType": "Pose2d",
                     "visible": true,
                     "options": {
@@ -104,7 +104,7 @@
                   },
                   {
                     "type": "trajectory",
-                    "logKey": "/AdvantageKit/RealOutputs/Odometry/Trajectory",
+                    "logKey": "NT:/AdvantageKit/RealOutputs/Odometry/Trajectory",
                     "logType": "Pose2d[]",
                     "visible": true,
                     "options": {
@@ -114,7 +114,7 @@
                   },
                   {
                     "type": "ghost",
-                    "logKey": "/AdvantageKit/RealOutputs/Odometry/TrajectorySetpoint",
+                    "logKey": "NT:/AdvantageKit/RealOutputs/Odometry/TrajectorySetpoint",
                     "logType": "Pose2d",
                     "visible": true,
                     "options": {
@@ -149,7 +149,7 @@
                 "leftSources": [
                   {
                     "type": "stepped",
-                    "logKey": "/AdvantageKit/Drive/Module0/TurnPosition/value",
+                    "logKey": "NT:/AdvantageKit/Drive/Module0/TurnPosition/value",
                     "logType": "Number",
                     "visible": true,
                     "options": {
@@ -159,7 +159,7 @@
                   },
                   {
                     "type": "stepped",
-                    "logKey": "/AdvantageKit/Drive/Module1/TurnPosition/value",
+                    "logKey": "NT:/AdvantageKit/Drive/Module1/TurnPosition/value",
                     "logType": "Number",
                     "visible": true,
                     "options": {
@@ -169,7 +169,7 @@
                   },
                   {
                     "type": "stepped",
-                    "logKey": "/AdvantageKit/Drive/Module2/TurnPosition/value",
+                    "logKey": "NT:/AdvantageKit/Drive/Module2/TurnPosition/value",
                     "logType": "Number",
                     "visible": true,
                     "options": {
@@ -179,7 +179,7 @@
                   },
                   {
                     "type": "stepped",
-                    "logKey": "/AdvantageKit/Drive/Module3/TurnPosition/value",
+                    "logKey": "NT:/AdvantageKit/Drive/Module3/TurnPosition/value",
                     "logType": "Number",
                     "visible": true,
                     "options": {
@@ -214,7 +214,7 @@
                 "leftSources": [
                   {
                     "type": "stepped",
-                    "logKey": "/AdvantageKit/Drive/Module0/DrivePositionRad",
+                    "logKey": "NT:/AdvantageKit/Drive/Module0/DrivePositionRad",
                     "logType": "Number",
                     "visible": true,
                     "options": {
@@ -224,7 +224,7 @@
                   },
                   {
                     "type": "stepped",
-                    "logKey": "/AdvantageKit/Drive/Module1/DrivePositionRad",
+                    "logKey": "NT:/AdvantageKit/Drive/Module1/DrivePositionRad",
                     "logType": "Number",
                     "visible": true,
                     "options": {
@@ -234,7 +234,7 @@
                   },
                   {
                     "type": "stepped",
-                    "logKey": "/AdvantageKit/Drive/Module2/DrivePositionRad",
+                    "logKey": "NT:/AdvantageKit/Drive/Module2/DrivePositionRad",
                     "logType": "Number",
                     "visible": true,
                     "options": {
@@ -244,7 +244,7 @@
                   },
                   {
                     "type": "stepped",
-                    "logKey": "/AdvantageKit/Drive/Module3/DrivePositionRad",
+                    "logKey": "NT:/AdvantageKit/Drive/Module3/DrivePositionRad",
                     "logType": "Number",
                     "visible": true,
                     "options": {
@@ -279,7 +279,7 @@
                 "leftSources": [
                   {
                     "type": "stepped",
-                    "logKey": "/AdvantageKit/RealOutputs/SwerveStates/Measured/0/angle/value",
+                    "logKey": "NT:/AdvantageKit/RealOutputs/SwerveStates/Measured/0/angle/value",
                     "logType": "Number",
                     "visible": true,
                     "options": {
@@ -289,7 +289,7 @@
                   },
                   {
                     "type": "stepped",
-                    "logKey": "/AdvantageKit/RealOutputs/SwerveStates/SetpointsOptimized/0/angle/value",
+                    "logKey": "NT:/AdvantageKit/RealOutputs/SwerveStates/SetpointsOptimized/0/angle/value",
                     "logType": "Number",
                     "visible": true,
                     "options": {
@@ -324,7 +324,7 @@
                 "leftSources": [
                   {
                     "type": "stepped",
-                    "logKey": "/AdvantageKit/RealOutputs/SwerveStates/Measured/0/speed",
+                    "logKey": "NT:/AdvantageKit/RealOutputs/SwerveStates/Measured/0/speed",
                     "logType": "Number",
                     "visible": true,
                     "options": {
@@ -334,7 +334,7 @@
                   },
                   {
                     "type": "stepped",
-                    "logKey": "/AdvantageKit/RealOutputs/SwerveStates/SetpointsOptimized/0/speed",
+                    "logKey": "NT:/AdvantageKit/RealOutputs/SwerveStates/SetpointsOptimized/0/speed",
                     "logType": "Number",
                     "visible": true,
                     "options": {
@@ -369,7 +369,7 @@
                 "leftSources": [
                   {
                     "type": "stepped",
-                    "logKey": "/AdvantageKit/RealOutputs/SwerveChassisSpeeds/Measured/vx",
+                    "logKey": "NT:/AdvantageKit/RealOutputs/SwerveChassisSpeeds/Measured/vx",
                     "logType": "Number",
                     "visible": true,
                     "options": {
@@ -379,7 +379,7 @@
                   },
                   {
                     "type": "stepped",
-                    "logKey": "/AdvantageKit/RealOutputs/SwerveChassisSpeeds/Measured/vy",
+                    "logKey": "NT:/AdvantageKit/RealOutputs/SwerveChassisSpeeds/Measured/vy",
                     "logType": "Number",
                     "visible": true,
                     "options": {
@@ -414,7 +414,7 @@
                 "leftSources": [
                   {
                     "type": "stepped",
-                    "logKey": "/AdvantageKit/Drive/Module0/DriveStatorCurrentAmps",
+                    "logKey": "NT:/AdvantageKit/Drive/Module0/DriveStatorCurrentAmps",
                     "logType": "Number",
                     "visible": true,
                     "options": {
@@ -426,7 +426,7 @@
                 "rightSources": [
                   {
                     "type": "stepped",
-                    "logKey": "/AdvantageKit/Drive/Module0/DriveVelocityRadPerSec",
+                    "logKey": "NT:/AdvantageKit/Drive/Module0/DriveVelocityRadPerSec",
                     "logType": "Number",
                     "visible": true,
                     "options": {

@@ -241,7 +241,7 @@ Branch `lesson-05-solution`, after your pull request is open.
 
 | Symptom | What it means | What to do |
 | --- | --- | --- |
-| Fields have a line through them, or every tab is empty | Connected with the **NetworkTables 4 (AdvantageKit)** option, which strips `AdvantageKit/` off every name | Reconnect with the plain **Connect to Simulator** |
+| Fields have a line through them | The layout's names do not match the live ones. Live keys start `NT:/AdvantageKit/` | Use the layout in this folder, not the one from the AdvantageKit release |
 | The odometry tab is empty, the rest fill | `Odometry/Robot` comes from the vision pose estimator, not from `Drive` | Expected in Grapefruit. Not this lesson's problem |
 | Autonomous does nothing | The chooser is on its default | Pick the routine before you enable |
 | The routine printed nothing | Never disabled, or disabled inside the first two seconds | It prints when it ends, and records nothing before the ramp starts |
