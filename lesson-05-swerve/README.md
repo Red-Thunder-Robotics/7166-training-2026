@@ -127,7 +127,11 @@ The template's example robot has a 7.36:1 drive gearbox. Ours is 4.94:1. So our 
 
 **Video (part 3 of 4), tuning in simulation:** _link goes here once it is recorded._
 
-Import `AdvantageScope Swerve Calibration.json` from this folder: **File**, **Import Layout**. Connect with **File**, **Connect to Simulator**, **NetworkTables 4 (AdvantageKit)**. That mode drops the `AdvantageKit/` prefix, and the tabs stay empty without it.
+Set AdvantageScope up in this order:
+
+1. Start the simulation and let the Sim GUI open.
+2. **File**, **Connect to Simulator**. Take the plain one.
+3. **File**, **Import Layout...**, and pick `AdvantageScope Swerve Calibration.json` from this folder.
 
 The cycle for every change: close the Sim GUI, edit the line, run `WPILib: Simulate Robot Code` with **Sim GUI** ticked, drag **Keyboard 0** onto `Joystick[0]`, set **Teleoperated**, reconnect AdvantageScope.
 
@@ -237,7 +241,7 @@ Branch `lesson-05-solution`, after your pull request is open.
 
 | Symptom | What it means | What to do |
 | --- | --- | --- |
-| Every layout tab is empty | AdvantageScope connected in **Default** mode | **Connect to Simulator**, **NetworkTables 4 (AdvantageKit)** |
+| Fields have a line through them, or every tab is empty | Connected with the **NetworkTables 4 (AdvantageKit)** option, which strips `AdvantageKit/` off every name | Reconnect with the plain **Connect to Simulator** |
 | The odometry tab is empty, the rest fill | `Odometry/Robot` comes from the vision pose estimator, not from `Drive` | Expected in Grapefruit. Not this lesson's problem |
 | Autonomous does nothing | The chooser is on its default | Pick the routine before you enable |
 | The routine printed nothing | Never disabled, or disabled inside the first two seconds | It prints when it ends, and records nothing before the ramp starts |
