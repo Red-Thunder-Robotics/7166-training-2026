@@ -58,7 +58,7 @@ Keep [AdvantageKit's TalonFX(S) Swerve Template](https://docs.advantagekit.org/g
 
 ## 1. Where the drivetrain came from
 
-**Video (part 1 of 4), the template inside Grapefruit:** _link goes here once it is recorded._
+[Video for part 1](https://youtu.be/k8MDorIF35k)
 
 Open `subsystems/drive/Drive.java`. 
 
@@ -79,7 +79,7 @@ The same split as the indexer, one level deeper.
 
 ## 3. Where each number comes from
 
-**Video (part 2 of 4), every number and its source:** _link goes here once it is recorded._
+[Video for part 2](https://youtu.be/5Lfwtaq59cQ)
 
 Every value in `TunerConstants.java` came from one of three places.
 
@@ -125,7 +125,7 @@ The template's example robot has a 7.36:1 drive gearbox. Ours is 4.94:1. So our 
 
 ## 5. Tune it
 
-**Video (part 3 of 4), tuning in simulation:** _link goes here once it is recorded._
+[Video for part 3](https://youtu.be/8IL9aruYWg0)
 
 Set AdvantageScope up in this order:
 
@@ -275,10 +275,9 @@ Short answers. One line each is fine.
 2. Did you tune turn or drive first?
 3. What `TURN_KP` and `TURN_KD` did you end up with?
 4. What two numbers did the feedforward routine print?
-5. You asked the wheels for 3.89 m/s. What did they do before you put those numbers in, and after?
-6. What happened when `DRIVE_KP` was 1.0?
-7. Which of the six steps cannot run in simulation?
-8. List the six steps in the order you ran them.
+5. What happened when `DRIVE_KP` was 1.0?
+6. Which of the six steps cannot run in simulation?
+7. List the six steps in the order you ran them.
 
 ## Against the solution
 - Anything you tuned differently from `lesson-05-solution`:
