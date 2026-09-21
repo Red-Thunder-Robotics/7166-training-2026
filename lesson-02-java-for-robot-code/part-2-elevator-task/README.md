@@ -1,6 +1,7 @@
 # Part 2: The elevator task
 
 [Back to lesson 02](../) · Before this: [Part 1](../part-1-java-for-robot-code/)
+[Video](https://youtu.be/MYH6XVMIclc) for this task.
 
 Adapted from FRC 971's public [java-evaluation](https://github.com/frc971/training-2026/tree/main/tasks/java-evaluation) task.
 

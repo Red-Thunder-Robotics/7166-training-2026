@@ -1,6 +1,7 @@
 # Part 1: Java for robot code
 
 [Back to lesson 02](../) · Next: [Part 2, the elevator task](../part-2-elevator-task/)
+[Video](https://youtu.be/pAHYPxFpKXI) for this part.
 
 Read this with Grapefruit open (`7166_REBUILT` repo).
 
